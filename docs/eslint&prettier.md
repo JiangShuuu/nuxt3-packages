@@ -16,6 +16,7 @@ yarn add --dev typescript @typescript-eslint/parser @nuxtjs/eslint-config-typesc
 
 ```
 // .eslintrc.cjs
+
 module.exports = {
   root: true,
   env: {
@@ -34,6 +35,7 @@ module.exports = {
 
 ```
 //.prettierrc
+
 {
   "semi": false,
   "singleQuote": true
@@ -41,7 +43,41 @@ module.exports = {
 ```
 
 ```
+//.vscode/settings.json
+
+{
+  "files.autoSave": "onFocusChange",
+  "editor.formatOnSave": true
+}
+```
+
+```
+// .prettierignore
+
+node_modules
+*.log*
+.nuxt
+.nitro
+.cache
+.output
+.env
+dist
+```
+
+```
+//.eslintignore
+
+.nuxt
+.output
+dist
+components.d.ts
+nuxt.d.ts
+coverage
+```
+
+```
 //package.json
+
 {
   "scripts": {
     // ...
