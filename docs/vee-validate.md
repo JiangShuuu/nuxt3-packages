@@ -22,7 +22,7 @@ export default defineNuxtConfig({
   // ...
   modules: [
     //...
-    '@vee-validate/nuxt',
+    "@vee-validate/nuxt",
   ],
-})
+});
 ```
