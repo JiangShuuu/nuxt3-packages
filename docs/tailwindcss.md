@@ -1,4 +1,4 @@
-## 1
+## Installation
 
 ```sh
 yarn add tailwindcss postcss autoprefixer
@@ -6,9 +6,9 @@ yarn add tailwindcss postcss autoprefixer
 npx tailwindcss init
 ```
 
-## 2
+## Configuration
 
-./nuxt.config.ts
+### ./nuxt.config.ts
 
 ```diff
 export default defineNuxtConfig({
@@ -21,9 +21,7 @@ export default defineNuxtConfig({
 });
 ```
 
-### 3
-
-./tailwind.config.js
+### ./tailwind.config.js
 
 ```diff
 module.exports = {
@@ -39,9 +37,7 @@ module.exports = {
 }
 ```
 
-### 4
-
-./assets/css/main.css
+### ./assets/css/main.css
 
 ```css
 @tailwind base;
@@ -49,7 +45,7 @@ module.exports = {
 @tailwind utilities;
 ```
 
-./nuxt.config.ts
+### ./nuxt.config.ts
 
 ```diff
 export default defineNuxtConfig({
@@ -59,9 +55,7 @@ export default defineNuxtConfig({
   }
 ```
 
-### 5
-
-./pages/tailwindcss.vue
+## Test
 
 ```vue
 <template>

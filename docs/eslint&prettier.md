@@ -2,21 +2,21 @@
 
 ### ESLint
 
-yarn add --dev eslint
+yarn add -D eslint
 
 ### Prettier
 
-yarn add --dev prettier eslint-config-prettier eslint-plugin-prettier
+yarn add -D prettier eslint-config-prettier eslint-plugin-prettier
 
 ### TypeScript support
 
-yarn add --dev typescript @typescript-eslint/parser @nuxtjs/eslint-config-typescript
+yarn add -D typescript @typescript-eslint/parser @nuxtjs/eslint-config-typescript
 
 ## Configuration
 
-```
-// .eslintrc.cjs
+### .eslintrc.cjs
 
+```
 module.exports = {
   root: true,
   env: {
@@ -33,27 +33,27 @@ module.exports = {
 }
 ```
 
-```
-//.prettierrc
+### .prettierrc
 
+```
 {
   "semi": false,
   "singleQuote": true
 }
 ```
 
-```
-//.vscode/settings.json
+### .vscode/settings.json
 
+```
 {
   "files.autoSave": "onFocusChange",
   "editor.formatOnSave": true
 }
 ```
 
-```
-// .prettierignore
+### .prettierignore
 
+```
 node_modules
 *.log*
 .nuxt
@@ -64,9 +64,9 @@ node_modules
 dist
 ```
 
-```
-//.eslintignore
+### .eslintignore
 
+```
 .nuxt
 .output
 dist
@@ -75,9 +75,9 @@ nuxt.d.ts
 coverage
 ```
 
-```
-//package.json
+### package.json
 
+```
 {
   "scripts": {
     // ...

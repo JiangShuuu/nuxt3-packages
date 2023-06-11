@@ -2,6 +2,7 @@
   <div class="h-[2000px] flex justify-between">
     <!-- <NuxtWelcome /> -->
     <!-- Open the modal using ID.showModal() method -->
+    <div class="text-2xl">123213</div>
     <button class="btn" onclick="my_modal_1.showModal()">open modal</button>
     <div>dsadsa</div>
     <dialog id="my_modal_1" class="overflow-y-scroll modal">
