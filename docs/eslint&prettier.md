@@ -14,7 +14,8 @@ yarn add --dev typescript @typescript-eslint/parser @nuxtjs/eslint-config-typesc
 
 ## Configuration
 
-```.eslintrc.cjs
+```
+// .eslintrc.cjs
 module.exports = {
   root: true,
   env: {
@@ -31,16 +32,17 @@ module.exports = {
 }
 ```
 
-```.prettierrc
+```
+//.prettierrc
 {
   "semi": false,
   "singleQuote": true
 }
 ```
 
-```package.json
+```
+//package.json
 {
-  // ...
   "scripts": {
     // ...
     "lint:js": "eslint --ext \".ts,.vue\" --ignore-path .gitignore .",
@@ -49,6 +51,5 @@ module.exports = {
     "lintfix": "prettier --write --list-different . && yarn lint:js --fix"
     // ...
   }
-  // ...
 }
 ```
