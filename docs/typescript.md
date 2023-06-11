@@ -25,3 +25,9 @@ export default defineNuxtConfig({
 const a: Number = 'test'
 </script>
 ```
+
+```sh
+yarn dev
+or
+yarn build
+```
