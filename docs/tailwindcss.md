@@ -23,19 +23,23 @@ export default defineNuxtConfig({
 
 ### ./tailwind.config.js
 
-```diff
+```
 module.exports = {
   content: [
-+   './components/**/*.{js,vue,ts}',
-+   './layouts/**/*.vue',
-+   './pages/**/*.vue',
-+   './plugins/**/*.{js,ts}',
-+   './nuxt.config.{js,ts}',
-+   './app.vue',
+   './components/**/*.{js,vue,ts}',
+   './layouts/**/*.vue',
+   './pages/**/*.vue',
+   './plugins/**/*.{js,ts}',
+   './nuxt.config.{js,ts}',
+   './app.vue',
   ],
-  ...
+  theme: {
+    extend: {},
+  },
 }
 ```
+
+## Add Css
 
 ### ./assets/css/main.css
 
@@ -52,7 +56,7 @@ export default defineNuxtConfig({
 + css: ['~/assets/css/main.css'],
   postcss: {
     ...
-  }
+  },
 ```
 
 ## Test
