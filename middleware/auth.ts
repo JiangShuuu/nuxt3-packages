@@ -13,22 +13,48 @@ export default defineNuxtRouteMiddleware(async (to, from) => {
 
   const cookieToken = useCookie('access_token')
 
-  await $fetch('/api/auth/clothes/currentUser').then((data) => {
-    console.log('getUser', data)
-    userStore.addUserInfo(data.data)
-  })
+  // const getCurrentUser = async () => {
+  //   await useFetch('/api/auth/clothes/currentUser', {
+  //     body: {
+  //       token: cookieToken,
+  //     },
+  //   })
+  //     .then((data: any) => {
+  //       console.log('getUser', data)
+  //       userStore.addUserInfo(data.data)
+  //       return data
+  //     })
+  //     .catch((error) => {
+  //       console.error(error)
+  //       navigateTo('/app-auth/login')
+  //     })
+  // }
 
   console.log('middleFrom', from, to)
-  console.log('middleToken', userStore.$state.user)
+  // console.log('middleToken', userStore.$state.user)
 
-  const token = cookieToken.value
-  if (process.server && !token) {
-    return navigateTo('/app-auth/login')
+  // const token = cookieToken.value
+  if (process.server) {
+    await useFetch('/api/auth/clothes/currentUser', {
+      body: {
+        token: cookieToken,
+      },
+    })
+      .then((data: any) => {
+        console.log('getUser', data)
+        userStore.addUserInfo(data.data)
+        return data
+      })
+      .catch((error) => {
+        console.error(error)
+        navigateTo('/app-auth/login')
+      })
   }
 
   const user = userStore.$state.user
+
   if (process.client && !user.id) {
-    console.log('client沒有token')
-    return navigateTo('/app-auth/login')
+    console.log('client')
+    return navigateTo('/')
   }
 })
