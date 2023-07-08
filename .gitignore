@@ -3,8 +3,8 @@
 .nuxt
 .nitro
 .cache
+*.env
 dist
-*.vscode
 
 # Node dependencies
 node_modules
@@ -19,5 +19,4 @@ logs
 .idea
 
 # Local env files
-.env.*
 !.env.example
