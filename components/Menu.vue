@@ -29,7 +29,6 @@
 </template>
 
 <script lang="ts" setup>
-const router = useRouter()
 const items = [
   [
     {
@@ -37,24 +36,28 @@ const items = [
       avatar: {
         src: 'https://avatars.githubusercontent.com/u/739984?v=4',
       },
-      click: () => {
-        router.push('/')
-      },
+      to: '/',
+    },
+  ],
+  [
+    {
+      label: 'app-auth',
+      icon: 'i-heroicons-arrow-right-circle-20-solid',
+      to: '/app-auth',
+    },
+    {
+      label: 'irs-auth',
+      icon: 'i-heroicons-arrow-right-circle-20-solid',
+      to: '/irs-auth',
     },
   ],
   [
     {
       label: 'NuxtUI',
       icon: 'i-heroicons-pencil-square-20-solid',
+      to: '/nuxtui',
       click: () => {
-        router.push('/nuxtui')
-      },
-    },
-    {
-      label: 'Auth',
-      icon: 'i-heroicons-arrow-right-circle-20-solid',
-      click: () => {
-        router.push('/auth')
+        console.log('goNuxtUI')
       },
     },
   ],

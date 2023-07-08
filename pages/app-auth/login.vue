@@ -1,9 +1,16 @@
 <template>
   <div class="flex h-screen items-center justify-center">
-    <div v-if="pending">isLoading...</div>
+    <div>isLoading...</div>
     <div v-if="error"></div>
+    <div v-if="pending" class="flex items-center space-x-4">
+      <USkeleton class="h-12 w-12 rounded-full" />
+      <div class="space-y-2">
+        <USkeleton class="h-4 w-[250px]" />
+        <USkeleton class="h-4 w-[200px]" />
+      </div>
+    </div>
     <div class="space-y-4">
-      <p>IRSUser: {{ data }}</p>
+      <p>APPUser: {{ data }}</p>
       <button
         class="w-20 rounded border bg-sky-600 py-1 text-white"
         @click="execute()"
