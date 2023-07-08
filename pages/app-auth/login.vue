@@ -9,7 +9,7 @@
       </div>
     </div>
     <div class="space-y-4">
-      <p>APPUser: {{ data }}</p>
+      <p>APPUser: {{ userStore.$state.user }}</p>
       <button
         class="w-20 rounded border bg-sky-600 py-1 text-white"
         @click="LoginAction"
@@ -21,6 +21,9 @@
 </template>
 
 <script setup lang="ts">
+import { useUserStore } from '~/stores/user'
+const userStore = useUserStore()
+
 const config = useRuntimeConfig()
 const publicEnv = config.public
 
@@ -36,6 +39,7 @@ const { data, pending, error, execute } = await useFetch('/api/auth/clothes', {
 
 const LoginAction = async () => {
   await execute()
-  console.log('getAuth', data.value?.data.user.userData)
+  // addStore
+  userStore.addUserInfo(data.value?.data.user)
 }
 </script>
