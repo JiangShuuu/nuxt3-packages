@@ -1,19 +1,4 @@
-export interface User {
-  data: {
-    token: string
-    user: {
-      userData: {
-        id: Number
-        name: string
-        avatar: string
-        email: string
-        isAdmin?: boolean
-        updatedAt: string
-        createdAt: string
-      }
-    }
-  }
-}
+import type { User } from '~/types/user'
 
 export default defineEventHandler(async (event) => {
   const config = useRuntimeConfig()

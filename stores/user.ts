@@ -1,6 +1,7 @@
 import { defineStore } from 'pinia'
-// import type { User } from '~/server/api/auth/clothes/index'
-// type UserInfo = Pick<User['data']['user'], 'userData'>
+import type { User } from '~/types/user'
+
+type UserInfo = Pick<User['data'], 'user' | 'token'>
 
 export const useUserStore = defineStore({
   id: 'user',
@@ -11,15 +12,14 @@ export const useUserStore = defineStore({
       name: '',
       avatar: '',
       email: '',
-      isAdmin: true,
+      isAdmin: false,
       updatedAt: '',
       createdAt: '',
     },
   }),
   actions: {
-    addUserInfo(item: any) {
-      console.log('getStoreUser', item)
-      this.user = item.userData
+    addUserInfo(item: UserInfo) {
+      this.user = item.user.userData
       this.token = item.token
     },
   },
