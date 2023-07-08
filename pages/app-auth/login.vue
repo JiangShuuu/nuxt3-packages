@@ -1,16 +1,7 @@
 <template>
   <div class="flex h-screen flex-col items-center justify-center">
     <div v-if="error"></div>
-    <div v-if="pending" class="flex items-center space-x-4">
-      <USkeleton class="h-12 w-12 rounded-full" />
-      <div class="space-y-2">
-        <USkeleton class="h-4 w-[250px]" />
-        <USkeleton class="h-4 w-[200px]" />
-      </div>
-    </div>
     <div class="flex flex-col items-center justify-center space-y-4">
-      <p>APPUser: {{ userStore.$state.user }}</p>
-      <!-- <p>Token: {{ userStore.$state.token }}</p> -->
       <button
         class="w-20 rounded border bg-sky-600 py-1 text-white"
         @click="LoginAction"
@@ -29,7 +20,7 @@ const config = useRuntimeConfig()
 const publicEnv = config.public
 
 // immediate true SSR 才會成功
-const { data, pending, error, execute } = await useFetch('/api/auth/clothes', {
+const { data, error, execute } = await useFetch('/api/auth/clothes', {
   method: 'POST',
   body: {
     email: publicEnv.appAccount,
@@ -43,6 +34,7 @@ const LoginAction = async () => {
   // addStore
   if (data.value) {
     userStore.addUserInfo(data.value.data)
+    navigateTo('/app-auth')
   }
 }
 </script>
