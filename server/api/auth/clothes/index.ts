@@ -1,11 +1,17 @@
 interface User {
   data: {
-    id: string
-    account_id: string
-    employee_no: string
-    nickname: string
-    status: boolean
-    role_type: number
+    token: string
+    user: {
+      userData: {
+        id: Number
+        name: string
+        avatar: string
+        email: string
+        isAdmin?: boolean
+        updatedAt: string
+        createdAt: string
+      }
+    }
   }
 }
 

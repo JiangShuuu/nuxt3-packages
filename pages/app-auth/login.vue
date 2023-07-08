@@ -1,6 +1,5 @@
 <template>
   <div class="flex h-screen items-center justify-center">
-    <div>isLoading...</div>
     <div v-if="error"></div>
     <div v-if="pending" class="flex items-center space-x-4">
       <USkeleton class="h-12 w-12 rounded-full" />
@@ -13,9 +12,9 @@
       <p>APPUser: {{ data }}</p>
       <button
         class="w-20 rounded border bg-sky-600 py-1 text-white"
-        @click="execute()"
+        @click="LoginAction"
       >
-        Get
+        Login
       </button>
     </div>
   </div>
@@ -34,4 +33,9 @@ const { data, pending, error, execute } = await useFetch('/api/auth/clothes', {
   },
   immediate: false,
 })
+
+const LoginAction = async () => {
+  await execute()
+  console.log('getAuth', data.value?.data.user.userData)
+}
 </script>
