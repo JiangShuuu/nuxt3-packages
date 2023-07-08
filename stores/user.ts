@@ -13,12 +13,11 @@ export const useUserStore = defineStore({
       avatar: '',
       email: '',
       isAdmin: false,
-      updatedAt: '',
-      createdAt: '',
     },
   }),
   actions: {
     addUserInfo(item: UserInfo) {
+      console.log('store', item)
       this.user = item.user.userData
       this.token = item.token
     },

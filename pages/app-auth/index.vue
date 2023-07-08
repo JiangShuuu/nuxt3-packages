@@ -23,5 +23,6 @@ definePageMeta({
   middleware: ['auth'],
 })
 const user = userStore.$state.user
+
 console.log(userStore.$state.user)
 </script>

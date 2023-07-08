@@ -13,5 +13,16 @@ export default defineEventHandler(async (event) => {
     },
   })
 
+  const maxAge = 60 * 60 * 24 * 7
+  const expires = Math.floor(Date.now() / 1000) + maxAge
+
+  setCookie(event, 'access_token', data.data.token, {
+    httpOnly: true,
+    maxAge,
+    expires: new Date(expires * 1000),
+    secure: process.env.NODE_ENV === 'production',
+    path: '/',
+  })
+
   return data
 })

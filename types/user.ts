@@ -8,8 +8,6 @@ export interface User {
         avatar: string
         email: string
         isAdmin: boolean
-        updatedAt: string
-        createdAt: string
       }
     }
   }
