@@ -2,6 +2,10 @@ import { useUserStore } from '~/stores/user'
 const userStore = useUserStore()
 
 export default defineNuxtRouteMiddleware(async (to, from) => {
+  // if (from.path === '/') {
+  //   console.log('同頁面, 中斷')
+  //   abortNavigation()
+  // }
   /*
     1. 檢查 store 有沒有 userInfo, 有就登入
     2. 沒有的話先去抓 cookie || session 內的token
@@ -47,7 +51,7 @@ export default defineNuxtRouteMiddleware(async (to, from) => {
       })
       .catch((error) => {
         console.error(error)
-        navigateTo('/app-auth/login')
+        navigateTo('/app-auth/login', { replace: false, external: true })
       })
   }
 
@@ -55,6 +59,6 @@ export default defineNuxtRouteMiddleware(async (to, from) => {
 
   if (process.client && !user.id) {
     console.log('client')
-    return navigateTo('/')
+    return navigateTo('/', { replace: false, external: true })
   }
 })
