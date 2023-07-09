@@ -16,29 +16,8 @@ export default defineNuxtRouteMiddleware(async (to, from) => {
   // const publicEnv = config.public
 
   const cookieToken = useCookie('access_token')
-
-  // const getCurrentUser = async () => {
-  //   await useFetch('/api/auth/clothes/currentUser', {
-  //     body: {
-  //       token: cookieToken,
-  //     },
-  //   })
-  //     .then((data: any) => {
-  //       console.log('getUser', data)
-  //       userStore.addUserInfo(data.data)
-  //       return data
-  //     })
-  //     .catch((error) => {
-  //       console.error(error)
-  //       navigateTo('/app-auth/login')
-  //     })
-  // }
-
-  console.log('middleFrom', from, to)
-  // console.log('middleToken', userStore.$state.user)
-
-  // const token = cookieToken.value
-  if (process.server) {
+  const user = userStore.$state.user
+  if (!user.name) {
     await useFetch('/api/auth/clothes/currentUser', {
       body: {
         token: cookieToken,
@@ -47,7 +26,6 @@ export default defineNuxtRouteMiddleware(async (to, from) => {
       .then((data: any) => {
         console.log('getUser', data)
         userStore.addUserInfo(data.data)
-        return data
       })
       .catch((error) => {
         console.error(error)
@@ -55,10 +33,17 @@ export default defineNuxtRouteMiddleware(async (to, from) => {
       })
   }
 
-  const user = userStore.$state.user
+  console.log('middleFrom', from, to)
+  // console.log('middleToken', userStore.$state.user)
 
-  if (process.client && !user.id) {
-    console.log('client')
-    return navigateTo('/', { replace: false, external: true })
-  }
+  // const token = cookieToken.value
+  // if (process.server) {
+  // }
+
+  // const user = userStore.$state.user
+
+  // if (process.client && !user.id) {
+  //   console.log('client')
+  //   return navigateTo('/', { replace: false, external: true })
+  // }
 })
