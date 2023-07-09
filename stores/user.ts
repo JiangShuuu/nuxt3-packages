@@ -6,7 +6,6 @@ type UserInfo = Pick<User['data'], 'user' | 'token'>
 export const useUserStore = defineStore({
   id: 'user',
   state: () => ({
-    token: '',
     user: {
       id: 0,
       name: '',
@@ -19,7 +18,7 @@ export const useUserStore = defineStore({
     addUserInfo(item: UserInfo) {
       console.log('store', item)
       this.user = item.user.userData
-      this.token = item.token
+      // this.token = item?.token || ''
     },
   },
   getters: {},
