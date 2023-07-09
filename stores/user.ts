@@ -16,9 +16,8 @@ export const useUserStore = defineStore({
   }),
   actions: {
     addUserInfo(item: UserInfo) {
-      console.log('store', item)
+      console.log('store', item.user.userData)
       this.user = item.user.userData
-      // this.token = item?.token || ''
     },
   },
   getters: {},

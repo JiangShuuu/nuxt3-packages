@@ -1,3 +1,4 @@
+import axios from 'axios'
 import { useUserStore } from '~/stores/user'
 const userStore = useUserStore()
 
@@ -13,27 +14,40 @@ export default defineNuxtRouteMiddleware(async (to, from) => {
     3. 用token去打api抓 currentUser
     4. 成功存進 store 失敗導回登入頁
   */
-  // const config = useRuntimeConfig()
-  // const publicEnv = config.public
+  const config = useRuntimeConfig()
+  const publicEnv = config.public
 
   const user = userStore.$state.user
+
   if (!user.name) {
-    const { data, error } = await useFetch('/api/auth/clothes/currentUser', {
-      method: 'POST',
-    })
-
-    if (data) {
-      console.log('getUser', data.value.data)
-      userStore.addUserInfo(data.value.data)
-    }
-
-    if (error) {
-      console.log('error', error)
-    }
-    // if (error) {
-    //   console.log('getError', error)
-    //   return navigateTo('/app-auth/login')
-    //   return navigateTo('/', { replace: false, external: true })
-    // }
+    await axios
+      .post(`${publicEnv.BASE_URL}/api/auth/clothes/currentUser`)
+      .then((data) => {
+        console.log('getUser', data)
+        userStore.addUserInfo(data.data.data)
+      })
+      .catch((err) => {
+        console.log('getError', err)
+      })
   }
+
+  // if (!user.name) {
+  //   const { data, error } = await useFetch('/api/auth/clothes/currentUser', {
+  //     method: 'POST',
+  //   })
+
+  //   if (data) {
+  //     console.log('getUser', data.value.data)
+  //     userStore.addUserInfo(data.value.data)
+  //   }
+
+  //   if (error) {
+  //     console.log('error', error)
+  //   }
+  // }
+  // if (error) {
+  //   console.log('getError', error)
+  //   return navigateTo('/app-auth/login')
+  //   return navigateTo('/', { replace: false, external: true })
+  // }
 })

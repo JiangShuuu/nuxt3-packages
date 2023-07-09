@@ -24,5 +24,5 @@ definePageMeta({
 })
 const user = userStore.$state.user
 
-console.log(userStore.$state.user)
+console.log('PageUser', user)
 </script>
