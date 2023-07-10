@@ -4,7 +4,7 @@ const userStore = useUserStore()
 
 export default defineNuxtRouteMiddleware(async (to, from) => {
   console.log('middlewareRoute', to.path, from.path)
-  // if (from.path === '/') {
+  // if (from.path === '/app-auth/login') {
   //   console.log('同頁面, 中斷')
   //   abortNavigation()
   // }
@@ -17,8 +17,14 @@ export default defineNuxtRouteMiddleware(async (to, from) => {
   const router = useRouter()
   const config = useRuntimeConfig()
   const publicEnv = config.public
+  const cookie = useCookie('access_token')
 
   const user = userStore.$state.user
+
+  // SSR 階段檢查 cookie 是否存在
+  if (process.server && !cookie.value) {
+    return navigateTo('/app-auth/login')
+  }
 
   if (!user.name) {
     await axios
@@ -32,6 +38,7 @@ export default defineNuxtRouteMiddleware(async (to, from) => {
         router.push('/app-auth/login')
       })
   }
+  // return navigateTo(to.fullPath)
 
   // if (!user.name) {
   //   const { data, error } = await useFetch('/api/auth/clothes/currentUser', {
