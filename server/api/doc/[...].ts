@@ -22,4 +22,14 @@ router.get(
   })
 )
 
+router.post(
+  '/redis',
+  defineEventHandler(async (event) => {
+    const body = await readBody(event)
+    console.log('getRedisBody', body)
+    await useStorage().setItem('redis:test', body)
+    return 'Data is set'
+  })
+)
+
 export default useBase('/api/doc', router.handler)
