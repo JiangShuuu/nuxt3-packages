@@ -1,11 +1,11 @@
 import axios from 'axios'
 
-export default defineEventHandler(async (event) => {
+export default defineEventHandler(async () => {
   const config = useRuntimeConfig()
-  // const token = getCookie(event, 'access_token')
   const serverEnv = config.apiSecret
-  const cookies = parseCookies(event)
-  const token = cookies?.access_token
+  // const cookies = parseCookies(event)
+  // const token = cookies?.access_token
+  const token = await useStorage('redis').getItem('token')
   console.log('ApiToken', token)
   if (!token) {
     throw createError({
