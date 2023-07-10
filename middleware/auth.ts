@@ -14,6 +14,7 @@ export default defineNuxtRouteMiddleware(async (to, from) => {
     3. 用token去打api抓 currentUser
     4. 成功存進 store 失敗導回登入頁
   */
+  const router = useRouter()
   const config = useRuntimeConfig()
   const publicEnv = config.public
 
@@ -28,6 +29,7 @@ export default defineNuxtRouteMiddleware(async (to, from) => {
       })
       .catch((err) => {
         console.log('getError', err)
+        router.push('/app-auth/login')
       })
   }
 
