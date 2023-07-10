@@ -3,15 +3,18 @@
     <div
       class="flex h-20 w-[300px] items-center justify-center space-x-4 border"
     >
-      <img :src="user.avatar" class="h-12 w-12 rounded-full" />
-      <div class="space-y-2">
-        <p class="w-full">
-          {{ user.name }}
-        </p>
-        <p class="w-full">
-          {{ user.email }}
-        </p>
-      </div>
+      <!-- wip 不加會有 SSR 渲染問題 -->
+      <client-only>
+        <img :src="user.avatar" class="h-12 w-12 rounded-full" />
+        <div class="space-y-2">
+          <p class="w-full">
+            {{ user.name }}
+          </p>
+          <p class="w-full">
+            {{ user.email }}
+          </p>
+        </div>
+      </client-only>
     </div>
   </div>
 </template>
