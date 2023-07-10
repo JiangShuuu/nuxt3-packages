@@ -23,7 +23,9 @@ export default defineEventHandler(async () => {
     .then(({ data }) => {
       return data
     })
-    .catch((err) => {
+    .catch(async (err) => {
+      // 移除 redis token
+      await useStorage('redis').removeItem('token')
       throw createError({ statusCode: 404, statusMessage: err })
     })
 

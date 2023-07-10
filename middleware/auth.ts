@@ -10,9 +10,8 @@ export default defineNuxtRouteMiddleware(async (to, from) => {
   // }
   /*
     1. 檢查 store 有沒有 userInfo, 有就登入
-    2. 沒有的話先去抓 cookie || session 內的token
-    3. 用token去打api抓 currentUser
-    4. 成功存進 store 失敗導回登入頁
+    2. 沒有的話 call api 抓 currentUser 
+    3. 成功存進 store 失敗導回登入頁
   */
   const router = useRouter()
   const config = useRuntimeConfig()
