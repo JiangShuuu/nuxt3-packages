@@ -17,16 +17,8 @@ export default defineNuxtRouteMiddleware(async (to, from) => {
   const router = useRouter()
   const config = useRuntimeConfig()
   const publicEnv = config.public
-  // const testR = await useStorage().getItem('redis:test')
-  // console.log(testR)
-  const cookie = useCookie('access_token')
 
   const user = userStore.$state.user
-
-  // SSR 階段檢查 cookie 是否存在
-  if (process.server && !cookie.value) {
-    return navigateTo('/app-auth/login')
-  }
 
   if (!user.name) {
     await axios
