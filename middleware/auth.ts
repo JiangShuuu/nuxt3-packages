@@ -17,6 +17,8 @@ export default defineNuxtRouteMiddleware(async (to, from) => {
   const router = useRouter()
   const config = useRuntimeConfig()
   const publicEnv = config.public
+  // const testR = await useStorage().getItem('redis:test')
+  // console.log(testR)
   const cookie = useCookie('access_token')
 
   const user = userStore.$state.user
