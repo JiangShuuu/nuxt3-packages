@@ -32,7 +32,7 @@ export default defineNuxtConfig({
       redis: {
         driver: 'redis',
         /* redis connector options */
-        port: 6400, // Redis port
+        port: 6379, // Redis port
         host: '127.0.0.1', // Redis host
         db: 0, // Defaults to 0
         // tls: {}, // tls/ssl
