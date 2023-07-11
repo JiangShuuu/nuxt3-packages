@@ -9,13 +9,6 @@
         Login
       </button>
     </div>
-    <div>Post state: {{ resDataSuccess }}</div>
-    <button
-      class="w-20 rounded border bg-sky-600 py-1 text-white"
-      @click="PostRedis()"
-    >
-      Redis
-    </button>
   </div>
 </template>
 
@@ -44,13 +37,4 @@ const LoginAction = async () => {
     navigateTo('/app-auth')
   }
 }
-
-const { data: resDataSuccess, execute: PostRedis } = await useFetch(
-  '/api/doc/redis',
-  {
-    method: 'post',
-    body: { text: 'Nuxt is Awesome!' },
-    immediate: false,
-  }
-)
 </script>
