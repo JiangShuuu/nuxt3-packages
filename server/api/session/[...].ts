@@ -9,6 +9,14 @@ const user = {
   address: 'ewqjkldsaiodjq',
 }
 
+router.get(
+  '/redis-session',
+  defineEventHandler(async (event) => {
+    const session = await useSessionEvent(event)
+    return `${session.id}, ${session.data.name}`
+  })
+)
+
 router.post(
   '/redis-session',
   defineEventHandler(async (event) => {
@@ -26,15 +34,28 @@ router.post(
       phone: user.phone,
       address: user.address,
     })
-    return `data:${session.id}, ${session.data.name}`
+    return `${session.id}, ${session.data.name}`
   })
 )
 
-router.get(
+router.put(
   '/redis-session',
   defineEventHandler(async (event) => {
+    const body = await readBody(event)
+    console.log('getUpdateSessionInfo', body)
+    // redis setItem
+    await useStorage().setItem('redis:test', body)
+    // InitSession
     const session = await useSessionEvent(event)
-    return `獲得Session資料, ${session.id}, ${session.data.name}`
+    console.log('updateSessionInfo', session.data)
+    // updateSessionStore
+    await session.update({
+      id: body.id,
+      name: body.name,
+      phone: body.phone,
+      address: body.address,
+    })
+    return `${session.id}, ${session.data.name}`
   })
 )
 
@@ -44,7 +65,7 @@ router.delete(
     const session = await useSessionEvent(event)
     await session.clear()
     deleteCookie(event, 'SessionName')
-    return `已清除Session, ${session.id}, ${session.data}`
+    return `${session.id}, ${session.data}`
   })
 )
 
