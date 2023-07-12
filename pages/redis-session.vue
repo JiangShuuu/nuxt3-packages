@@ -1,21 +1,32 @@
 <template>
-  <div class="flex h-screen flex-col items-center justify-center space-y-5">
-    <div class="space-y-2">
-      <div>Redis Info: {{ resDataSuccess }}</div>
+  <div
+    class="flex h-screen w-full flex-col items-center justify-center space-y-5"
+  >
+    <div class="w-full space-y-2 text-center">
+      <div>Redis Info: {{ postSession }}</div>
       <button
-        class="w-20 rounded border bg-sky-600 py-1 text-center text-white"
-        @click="PostRedis()"
+        class="rounded border bg-sky-600 px-1.5 py-1 text-center text-white"
+        @click="PostSession()"
       >
-        Redis
+        加入Redis跟Session
       </button>
     </div>
-    <div class="space-y-2">
-      <div>Session Info: {{ clearSession }}</div>
+    <div class="w-full space-y-2 text-center">
+      <div>Session Info: {{ delSession }}</div>
       <button
-        class="w-20 rounded border bg-sky-600 py-1 text-white"
-        @click="PostClearSession()"
+        class="rounded border bg-sky-600 px-1.5 py-1 text-white"
+        @click="DelSession()"
       >
-        Session
+        清除Session
+      </button>
+    </div>
+    <div class="w-full space-y-2 text-center">
+      <div>Session Info: {{ getSession }}</div>
+      <button
+        class="rounded border bg-sky-600 px-1.5 py-1 text-white"
+        @click="GetSession()"
+      >
+        獲取SessionInfo
       </button>
     </div>
   </div>
@@ -25,8 +36,8 @@
 // import { useUserStore } from '~/stores/user'
 // const userStore = useUserStore()
 
-const { data: resDataSuccess, execute: PostRedis } = await useFetch(
-  '/api/doc/redis',
+const { data: postSession, execute: PostSession } = await useFetch(
+  '/api/session/redis-session',
   {
     method: 'post',
     body: { text: 'Nuxt is Awesome!' },
@@ -34,10 +45,18 @@ const { data: resDataSuccess, execute: PostRedis } = await useFetch(
   }
 )
 
-const { data: clearSession, execute: PostClearSession } = await useFetch(
-  '/api/doc/redis-clear',
+const { data: delSession, execute: DelSession } = await useFetch(
+  '/api/session/redis-session',
   {
-    method: 'post',
+    method: 'delete',
+    immediate: false,
+  }
+)
+
+const { data: getSession, execute: GetSession } = await useFetch(
+  '/api/session/redis-session',
+  {
+    method: 'get',
     immediate: false,
   }
 )
