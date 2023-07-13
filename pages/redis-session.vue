@@ -49,7 +49,6 @@ const { data: postSession, execute: PostSession } = await useFetch(
   '/api/session/redis-session',
   {
     method: 'post',
-    body: { text: 'Nuxt is Awesome!' },
     immediate: false,
   }
 )
@@ -63,7 +62,7 @@ const { data: delSession, execute: DelSession } = await useFetch(
 )
 
 const { data: getSession, execute: GetSession } = await useFetch(
-  '/api/session/redis-session',
+  '/api/redirect',
   {
     method: 'get',
     immediate: false,

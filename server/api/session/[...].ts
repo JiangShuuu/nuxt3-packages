@@ -20,13 +20,8 @@ router.get(
 router.post(
   '/redis-session',
   defineEventHandler(async (event) => {
-    const body = await readBody(event)
-    console.log('getRedisBody', body)
-    // redis setItem
-    await useStorage().setItem('redis:test', body)
     // InitSession
     const session = await useSessionEvent(event)
-    console.log('ewq', session.data)
     // updateSessionStore
     await session.update({
       id: user.id,
@@ -34,6 +29,9 @@ router.post(
       phone: user.phone,
       address: user.address,
     })
+    // redis set User
+    await useStorage('redis').setItem('user', user)
+    await useStorage('redis').setItem('sessionId', session.id || '')
     return `${session.id}, ${session.data.name}`
   })
 )
@@ -43,8 +41,6 @@ router.put(
   defineEventHandler(async (event) => {
     const body = await readBody(event)
     console.log('getUpdateSessionInfo', body)
-    // redis setItem
-    await useStorage().setItem('redis:test', body)
     // InitSession
     const session = await useSessionEvent(event)
     console.log('updateSessionInfo', session.data)
@@ -55,6 +51,9 @@ router.put(
       phone: body.phone,
       address: body.address,
     })
+    // redis set User
+    await useStorage('redis').setItem('user', body)
+    await useStorage('redis').setItem('sessionId', session.id || '')
     return `${session.id}, ${session.data.name}`
   })
 )
@@ -65,6 +64,9 @@ router.delete(
     const session = await useSessionEvent(event)
     await session.clear()
     deleteCookie(event, 'SessionName')
+    // redis del User
+    await useStorage('redis').removeItem('user')
+    await useStorage('redis').removeItem('sessionId')
     return `${session.id}, ${session.data}`
   })
 )

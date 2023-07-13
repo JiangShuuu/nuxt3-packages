@@ -1,3 +1,3 @@
 export default defineEventHandler((event) => {
-  return navigatorTo(event, '/nuxtui', 302)
+  return sendRedirect(event, '/app-auth/login', 307)
 })
