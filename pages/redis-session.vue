@@ -62,7 +62,7 @@ const { data: delSession, execute: DelSession } = await useFetch(
 )
 
 const { data: getSession, execute: GetSession } = await useFetch(
-  '/api/redirect',
+  '/api/session/redis-session',
   {
     method: 'get',
     immediate: false,

@@ -11,6 +11,9 @@ export default defineNuxtConfig({
   runtimeConfig: {
     apiSecret: {
       apiBase: process.env.APP_ENDPOINT,
+      HashKey: process.env.HASHKEY,
+      HashIV: process.env.HASHIV,
+      MerchantID: process.env.MERCHANTID,
     }, // NUXT_API_SECRET 有在env的話 apiBase 會優先選即便這在沒設定，並且只吃apiBase無法擴充
     public: {
       BASE_URL: process.env.BASE_URL,

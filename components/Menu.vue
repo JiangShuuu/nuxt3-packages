@@ -58,6 +58,12 @@ const items = [
         console.log('goRedis')
       },
     },
+    {
+      label: 'Money',
+      icon: 'i-heroicons-arrow-right-circle-20-solid',
+      to: '/money',
+      click: () => {},
+    },
   ],
   [
     {

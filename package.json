@@ -16,6 +16,7 @@
     "@nuxtjs/eslint-module": "^4.1.0",
     "@types/node": "^18",
     "axios": "^1.4.0",
+    "crypto": "^1.0.1",
     "eslint": "^8.44.0",
     "eslint-config-prettier": "^8.8.0",
     "eslint-plugin-nuxt": "^4.0.0",
