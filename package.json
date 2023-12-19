@@ -10,22 +10,21 @@
   },
   "devDependencies": {
     "@nuxt/devtools": "latest",
-    "@nuxthq/ui": "^2.5.0",
     "@nuxtjs/eslint-config": "^12.0.0",
     "@nuxtjs/eslint-config-typescript": "^12.0.0",
     "@nuxtjs/eslint-module": "^4.1.0",
-    "@types/node": "^18",
+    "@types/node": "^18.19.3",
     "axios": "^1.4.0",
-    "crypto": "^1.0.1",
     "eslint": "^8.44.0",
     "eslint-config-prettier": "^8.8.0",
     "eslint-plugin-nuxt": "^4.0.0",
     "eslint-plugin-prettier": "^4.2.1",
-    "eslint-plugin-vitest": "^0.2.6",
-    "nuxt": "^3.6.1"
+    "eslint-plugin-vitest": "^0.2.6"
   },
   "dependencies": {
+    "@nuxt/ui": "^2.11.1",
     "@pinia/nuxt": "^0.4.11",
+    "nuxt": "^3.8.2",
     "pinia": "^2.1.4",
     "prettier": "^2.8.8",
     "prettier-plugin-tailwindcss": "^0.3.0",

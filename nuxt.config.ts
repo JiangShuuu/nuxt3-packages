@@ -26,7 +26,7 @@ export default defineNuxtConfig({
       appPassowrd: process.env.APP_PASSWORD,
     }, // NUXT_PUBLIC_API_BASE 有在env的話 apiBase 會優先選，即便沒設定這邊
   },
-  modules: ['@pinia/nuxt', '@nuxthq/ui'],
+  modules: ['@pinia/nuxt', '@nuxt/ui'],
   typescript: {
     strict: true,
   },
