@@ -41,6 +41,12 @@ const items = [
   ],
   [
     {
+      label: 'GraphQL',
+      icon: 'i-heroicons-arrow-right-circle-20-solid',
+      to: '/graphql',
+      click: () => {},
+    },
+    {
       label: 'app-auth',
       icon: 'i-heroicons-arrow-right-circle-20-solid',
       to: '/app-auth',
