@@ -18,15 +18,26 @@ export default defineNuxtConfig({
     public: {
       BASE_URL: process.env.BASE_URL,
       apiBase: process.env.APP_ENDPOINT,
-      irsEntpoint: process.env.IRS_ENDPOINT,
-      irsAccount: process.env.IRS_ACCOUNT,
-      irsPassword: process.env.IRS_PASSWORD,
       appEntpoint: process.env.APP_ENDPOINT,
       appAccount: process.env.APP_ACCOUNT,
       appPassowrd: process.env.APP_PASSWORD,
     }, // NUXT_PUBLIC_API_BASE 有在env的話 apiBase 會優先選，即便沒設定這邊
+    github: {
+      clientID: process.env.GITHUB_ID,
+      clientSecret: process.env.GITHUB_SECRET,
+    },
+    auth: {
+      secret: process.env.AUTH_SECRET, // You can generate one with `openssl rand -base64 32`
+    },
   },
-  modules: ['@pinia/nuxt', '@nuxt/ui', '@nuxtjs/apollo'],
+  modules: ['@pinia/nuxt', '@nuxt/ui', '@nuxtjs/apollo', '@sidebase/nuxt-auth'],
+  auth: {
+    // globalAppMiddleware: true, // 全域中間件檢查登入
+
+    provider: {
+      type: 'authjs', // local或authjs
+    },
+  },
   apollo: {
     clients: {
       default: {

@@ -6,11 +6,6 @@
       >AppAuth</NuxtLink
     >
     <NuxtLink
-      to="/irs-auth/login"
-      class="w-20 rounded border bg-sky-600 py-1 text-center text-white"
-      >IrsAuth</NuxtLink
-    >
-    <NuxtLink
       to="/nuxtui"
       class="w-20 rounded border bg-sky-600 py-1 text-center text-white"
       >Nuxtui</NuxtLink

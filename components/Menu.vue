@@ -52,11 +52,6 @@ const items = [
       to: '/app-auth',
     },
     {
-      label: 'irs-auth',
-      icon: 'i-heroicons-arrow-right-circle-20-solid',
-      to: '/irs-auth',
-    },
-    {
       label: 'Redis-Session',
       icon: 'i-heroicons-arrow-right-circle-20-solid',
       to: '/redis-session',
