@@ -15,6 +15,7 @@
       </div>
     </div>
     <div class="mt-5 space-x-4">
+      <UButton @click="getCurrent">GetUserInfo</UButton>
       <UButton @click="localLogin">Local Login</UButton>
       <UButton @click="signIn('github')">Github Login</UButton>
       <UButton color="white" @click="signOut">Logout</UButton>
@@ -32,7 +33,7 @@ type UserProp = {
   }
 }
 
-const { data, signOut, signIn } = useAuth()
+const { data, signOut, signIn, getSession } = useAuth()
 const config = useRuntimeConfig()
 
 let userInfo: UserProp['user'] | null | any = null
@@ -41,22 +42,9 @@ if (data.value) {
   userInfo = data.value.user
 }
 
-console.log('data', data)
+console.log('data', data.value)
 
 const localLogin = async () => {
-  // try {
-  //   const { error }: any = await signIn('credentials', {
-  //     email: config.public.appAccount,
-  //     password: config.public.appPassword,
-  //   })
-
-  //   if (error) {
-  //     console.log('error', error)
-  //   }
-  // } catch (err) {
-  //   console.log('Error::LocalLogin', err)
-  // }
-
   const { error }: any = await signIn('credentials', {
     email: config.public.appAccount,
     password: config.public.appPassword,
@@ -68,5 +56,22 @@ const localLogin = async () => {
   } else {
     navigateTo('/')
   }
+}
+
+const getCurrent = async () => {
+  const token = await getSession()
+  console.log('token', token)
+
+  const { data }: any = await $fetch(
+    'https://express.jiangshuuu.com/current_user',
+    {
+      method: 'GET',
+      headers: {
+        Authorization: 'Bearer ' + token.user.accessToken,
+      },
+    }
+  )
+
+  console.log('currentUserData', data)
 }
 </script>

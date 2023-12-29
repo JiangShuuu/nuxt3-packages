@@ -35,9 +35,11 @@ export default NuxtAuthHandler({
             }
           )
           const userFormat = {
+            id: data.user.userData.id,
             name: data.user.userData.name,
             email: data.user.userData.email,
             image: data.user.userData.avatar,
+            accessToken: data.token,
           }
           return userFormat
         } catch (err) {
@@ -52,10 +54,27 @@ export default NuxtAuthHandler({
       clientSecret: runtimeConfig.github.clientSecret,
     }),
   ],
-  // callbacks: {
-  //   signIn({ user, account, profile, email, credentials }) {
-  //     console.log('Callback_signIn', user, account, profile, email, credentials)
-  //     return true
-  //   },
-  // },
+  callbacks: {
+    // 加這邊才能修改 Session 預設 User 型別
+    // Callback when the JWT is created / updated, see https://next-auth.js.org/configuration/callbacks#jwt-callback
+    jwt: ({ token, user, account }) => {
+      // credentials登入
+      if (user && account && account.provider === 'credentials') {
+        token.user = {
+          ...user,
+        }
+      }
+
+      // 返回JWT
+      return Promise.resolve(token)
+    },
+    // Callback whenever session is checked, see https://next-auth.js.org/configuration/callbacks#session-callback
+    session: ({ session, token }) => {
+      // jwt資料合併到session.user
+      ;(session as any).user = token.user
+
+      // 送出session
+      return Promise.resolve(session)
+    },
+  },
 })
