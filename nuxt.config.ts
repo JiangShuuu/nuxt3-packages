@@ -20,7 +20,7 @@ export default defineNuxtConfig({
       apiBase: process.env.APP_ENDPOINT,
       appEntpoint: process.env.APP_ENDPOINT,
       appAccount: process.env.APP_ACCOUNT,
-      appPassowrd: process.env.APP_PASSWORD,
+      appPassword: process.env.APP_PASSWORD,
     }, // NUXT_PUBLIC_API_BASE 有在env的話 apiBase 會優先選，即便沒設定這邊
     github: {
       clientID: process.env.GITHUB_ID,

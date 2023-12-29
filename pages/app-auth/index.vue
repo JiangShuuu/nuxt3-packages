@@ -14,6 +14,11 @@
         </p>
       </div>
     </div>
+    <div class="mt-5 space-x-4">
+      <UButton @click="localLogin">Local Login</UButton>
+      <UButton @click="signIn('github')">Github Login</UButton>
+      <UButton color="white" @click="signOut">Logout</UButton>
+    </div>
   </div>
 </template>
 
@@ -27,7 +32,8 @@ type UserProp = {
   }
 }
 
-const { data } = useAuth()
+const { data, signOut, signIn } = useAuth()
+const config = useRuntimeConfig()
 
 let userInfo: UserProp['user'] | null | any = null
 
@@ -35,5 +41,16 @@ if (data.value) {
   userInfo = data.value.user
 }
 
-console.log('data', userInfo)
+console.log('data', data)
+
+const localLogin = async () => {
+  try {
+    await signIn('credentials', {
+      email: config.public.appAccount,
+      password: config.public.appPassword,
+    })
+  } catch (err) {
+    console.log('Error::LocalLogin', err)
+  }
+}
 </script>
