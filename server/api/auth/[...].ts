@@ -52,10 +52,10 @@ export default NuxtAuthHandler({
       clientSecret: runtimeConfig.github.clientSecret,
     }),
   ],
-  callbacks: {
-    signIn({ user, account, profile, email, credentials }) {
-      console.log('Callback_signIn', user, account, profile, email, credentials)
-      return true
-    },
-  },
+  // callbacks: {
+  //   signIn({ user, account, profile, email, credentials }) {
+  //     console.log('Callback_signIn', user, account, profile, email, credentials)
+  //     return true
+  //   },
+  // },
 })

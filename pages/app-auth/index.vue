@@ -44,13 +44,29 @@ if (data.value) {
 console.log('data', data)
 
 const localLogin = async () => {
-  try {
-    await signIn('credentials', {
-      email: config.public.appAccount,
-      password: config.public.appPassword,
-    })
-  } catch (err) {
-    console.log('Error::LocalLogin', err)
+  // try {
+  //   const { error }: any = await signIn('credentials', {
+  //     email: config.public.appAccount,
+  //     password: config.public.appPassword,
+  //   })
+
+  //   if (error) {
+  //     console.log('error', error)
+  //   }
+  // } catch (err) {
+  //   console.log('Error::LocalLogin', err)
+  // }
+
+  const { error }: any = await signIn('credentials', {
+    email: config.public.appAccount,
+    password: config.public.appPassword,
+    redirect: false,
+  })
+
+  if (error) {
+    console.log('error', error)
+  } else {
+    navigateTo('/')
   }
 }
 </script>
