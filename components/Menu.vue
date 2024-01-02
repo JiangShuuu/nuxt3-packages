@@ -7,7 +7,7 @@
         </template>
       </UButton>
     </UDropdown>
-    <p class="text-3xl font-bold">INTE-NUXT3</p>
+    <p class="text-3xl font-bold">NUXT3-Packages</p>
     <UAvatarGroup size="sm" :max="2">
       <UAvatar
         src="https://avatars.githubusercontent.com/u/739984?v=4"

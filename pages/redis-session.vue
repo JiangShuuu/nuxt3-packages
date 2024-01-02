@@ -2,35 +2,29 @@
   <div
     class="flex h-screen w-full flex-col items-center justify-center space-y-5"
   >
-    <div class="w-full space-y-2 text-center">
-      <div>Session Info: {{ postSession }}</div>
+    <div>
+      <p>SessionID: {{ userInfo.data.id }}</p>
+      <p>Name: {{ userInfo.data.name }}</p>
+    </div>
+    <div class="space-x-2">
       <button
         class="rounded border bg-sky-600 px-1.5 py-1 text-center text-white"
         @click="PostSession()"
       >
         加入Redis跟Session
       </button>
-    </div>
-    <div class="w-full space-y-2 text-center">
-      <div>Session Info: {{ delSession }}</div>
       <button
         class="rounded border bg-sky-600 px-1.5 py-1 text-white"
         @click="DelSession()"
       >
         清除Session
       </button>
-    </div>
-    <div class="w-full space-y-2 text-center">
-      <div>Session Info: {{ getSession }}</div>
       <button
         class="rounded border bg-sky-600 px-1.5 py-1 text-white"
         @click="GetSession()"
       >
         獲取SessionInfo
       </button>
-    </div>
-    <div class="w-full space-y-2 text-center">
-      <div>Session Info: {{ updateSession }}</div>
       <button
         class="rounded border bg-sky-600 px-1.5 py-1 text-white"
         @click="UpdateSession()"
@@ -42,34 +36,61 @@
 </template>
 
 <script setup lang="ts">
-// import { useUserStore } from '~/stores/user'
-// const userStore = useUserStore()
+// type UserInfoType = {
+//   data: {
+//     id: string
+//     name: string
+//   }
+//   success: boolean
+// }
 
-const { data: postSession, execute: PostSession } = await useFetch(
-  '/api/session/redis-session',
-  {
-    method: 'post',
-    immediate: false,
-  }
-)
+const userInfo = ref({
+  data: {
+    id: '',
+    name: '',
+  },
+  success: false,
+})
 
-const { data: delSession, execute: DelSession } = await useFetch(
-  '/api/session/redis-session',
-  {
-    method: 'delete',
-    immediate: false,
-  }
-)
+const { execute: PostSession } = await useFetch('/api/session/redis-session', {
+  method: 'post',
+  immediate: false,
+  onResponse({ response }) {
+    // Process the response data
+    if (response._data.success) {
+      userInfo.value = response._data
+    }
+  },
+})
 
-const { data: getSession, execute: GetSession } = await useFetch(
-  '/api/session/redis-session',
-  {
-    method: 'get',
-    immediate: false,
-  }
-)
+const { execute: DelSession } = await useFetch('/api/session/redis-session', {
+  method: 'delete',
+  immediate: false,
+  onResponse({ response }) {
+    // Process the response data
+    if (response._data.success) {
+      userInfo.value = {
+        data: {
+          id: '',
+          name: '',
+        },
+        success: false,
+      }
+    }
+  },
+})
 
-const { data: updateSession, execute: UpdateSession } = await useFetch(
+const { execute: GetSession } = await useFetch('/api/session/redis-session', {
+  method: 'get',
+  immediate: false,
+  onResponse({ response }) {
+    if (response._data.success) {
+      userInfo.value = response._data
+    }
+  },
+})
+
+const { execute: UpdateSession } = await useFetch(
   '/api/session/redis-session',
   {
     method: 'put',
@@ -80,6 +101,11 @@ const { data: updateSession, execute: UpdateSession } = await useFetch(
       address: 'updateupdateupdateupdate',
     },
     immediate: false,
+    onResponse({ response }) {
+      if (response._data.success) {
+        userInfo.value = response._data
+      }
+    },
   }
 )
 </script>

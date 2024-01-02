@@ -13,7 +13,13 @@ router.get(
   '/redis-session',
   defineEventHandler(async (event) => {
     const session = await useSessionEvent(event)
-    return `${session.id}, ${session.data.name}`
+    return {
+      data: {
+        id: session.id,
+        name: session.data.name,
+      },
+      success: true,
+    }
   })
 )
 
@@ -32,7 +38,13 @@ router.post(
     // redis set User
     await useStorage('redis').setItem('user', user)
     await useStorage('redis').setItem('sessionId', session.id || '')
-    return `${session.id}, ${session.data.name}`
+    return {
+      data: {
+        id: session.id,
+        name: session.data.name,
+      },
+      success: true,
+    }
   })
 )
 
@@ -54,7 +66,13 @@ router.put(
     // redis set User
     await useStorage('redis').setItem('user', body)
     await useStorage('redis').setItem('sessionId', session.id || '')
-    return `${session.id}, ${session.data.name}`
+    return {
+      data: {
+        id: session.id,
+        name: session.data.name,
+      },
+      success: true,
+    }
   })
 )
 
@@ -67,7 +85,10 @@ router.delete(
     // redis del User
     await useStorage('redis').removeItem('user')
     await useStorage('redis').removeItem('sessionId')
-    return `${session.id}, ${session.data}`
+    return {
+      data: true,
+      success: true,
+    }
   })
 )
 
