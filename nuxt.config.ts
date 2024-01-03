@@ -29,6 +29,7 @@ export default defineNuxtConfig({
     auth: {
       secret: process.env.AUTH_SECRET, // You can generate one with `openssl rand -base64 32`
     },
+    jwtSignSecret: process.env.JWT_SECRET,
   },
   modules: ['@pinia/nuxt', '@nuxt/ui', '@nuxtjs/apollo', '@sidebase/nuxt-auth'],
   auth: {

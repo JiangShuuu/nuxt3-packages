@@ -23,29 +23,19 @@ export default NuxtAuthHandler({
       },
 
       async authorize(credentials: Credential) {
-        try {
-          const { data }: any = await $fetch(
-            `${runtimeConfig.public.apiBase}/signin`,
-            {
-              method: 'POST',
-              body: JSON.stringify({
-                email: credentials.email,
-                password: credentials.password,
-              }),
-            }
-          )
-          const userFormat = {
-            id: data.user.userData.id,
-            name: data.user.userData.name,
-            email: data.user.userData.email,
-            image: data.user.userData.avatar,
-            accessToken: data.token,
-          }
-          return userFormat
-        } catch (err) {
-          console.error(err)
-          return null
+        if (!credentials?.email || !credentials?.password) {
+          throw new Error('Invalid credentials')
         }
+
+        const user = await $fetch('/api/auth/login', {
+          method: 'POST',
+          body: {
+            email: credentials.email,
+            password: credentials.password,
+          },
+        })
+
+        return user
       },
     }),
     // @ts-expect-error You need to use .default here for it to work during SSR. May be fixed via Vite at some point
@@ -64,6 +54,8 @@ export default NuxtAuthHandler({
           ...user,
         }
       }
+
+      console.log('tokenAXSADSA', account, token, user)
 
       // 返回JWT
       return Promise.resolve(token)
