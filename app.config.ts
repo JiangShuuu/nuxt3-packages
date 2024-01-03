@@ -2,7 +2,7 @@ export default defineAppConfig({
   ui: {
     notifications: {
       // Show toasts at the top right of the screen
-      position: 'top-0 right-1/2 translate-x-1/2',
+      position: 'top-0 bottom-auto',
     },
     formGroup: {
       error: 'absolute -bottom-4.5 text-red-500 dark:text-red-400',
