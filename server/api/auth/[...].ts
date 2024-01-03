@@ -1,7 +1,12 @@
+// @ts-ignore
+import bcrypt from 'bcrypt'
 import GithubProvider from 'next-auth/providers/github'
 import CredentialsProvider from 'next-auth/providers/credentials'
+import { PrismaAdapter } from '@next-auth/prisma-adapter'
+import { PrismaClient } from '@prisma/client'
 import { NuxtAuthHandler } from '#auth'
 
+const prisma = new PrismaClient()
 const runtimeConfig = useRuntimeConfig()
 type Credential = {
   email: string
@@ -9,6 +14,7 @@ type Credential = {
 }
 
 export default NuxtAuthHandler({
+  adapter: PrismaAdapter(prisma),
   secret: runtimeConfig.auth.secret,
   providers: [
     // @ts-expect-error You need to use .default here for it to work during SSR. May be fixed via Vite at some point
@@ -24,16 +30,35 @@ export default NuxtAuthHandler({
 
       async authorize(credentials: Credential) {
         if (!credentials?.email || !credentials?.password) {
-          throw new Error('Invalid credentials')
+          throw createError({
+            statusCode: 500,
+            statusMessage: 'Missing Info',
+          })
         }
 
-        const user = await $fetch('/api/auth/login', {
-          method: 'POST',
-          body: {
+        const user = await prisma.user.findUnique({
+          where: {
             email: credentials.email,
-            password: credentials.password,
           },
         })
+
+        if (!user || !user.hashedPassword) {
+          throw createError({
+            statusCode: 401,
+            statusMessage: 'Invalid Credentials',
+          })
+        }
+
+        const correctPassword = await bcrypt.compare(
+          credentials.password,
+          user.hashedPassword
+        )
+        if (!correctPassword) {
+          throw createError({
+            statusCode: 401,
+            statusMessage: 'Invalid Credentials',
+          })
+        }
 
         return user
       },
@@ -44,29 +69,11 @@ export default NuxtAuthHandler({
       clientSecret: runtimeConfig.github.clientSecret,
     }),
   ],
-  callbacks: {
-    // 加這邊才能修改 Session 預設 User 型別
-    // Callback when the JWT is created / updated, see https://next-auth.js.org/configuration/callbacks#jwt-callback
-    jwt: ({ token, user, account }) => {
-      // credentials登入
-      if (user && account && account.provider === 'credentials') {
-        token.user = {
-          ...user,
-        }
-      }
-
-      console.log('tokenAXSADSA', account, token, user)
-
-      // 返回JWT
-      return Promise.resolve(token)
-    },
-    // Callback whenever session is checked, see https://next-auth.js.org/configuration/callbacks#session-callback
-    session: ({ session, token }) => {
-      // jwt資料合併到session.user
-      ;(session as any).user = token.user
-
-      // 送出session
-      return Promise.resolve(session)
-    },
+  debug: process.env.NODE_ENV === 'development',
+  // pages: {
+  //   signIn: '/',
+  // },
+  session: {
+    strategy: 'jwt',
   },
 })

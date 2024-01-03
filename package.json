@@ -10,6 +10,7 @@
     "test": "vitest"
   },
   "devDependencies": {
+    "@next-auth/prisma-adapter": "^1.0.7",
     "@nuxt/devtools": "latest",
     "@nuxtjs/apollo": "5.0.0-alpha.11",
     "@nuxtjs/eslint-config": "^12.0.0",
