@@ -4,14 +4,11 @@ export default defineEventHandler(async (event) => {
   const body = await readBody(event)
   const token = await getToken({ event })
 
-  console.log('body', body)
+  console.log('body', body.count)
 
-  const accessData = {
-    name: '123',
-    email: '321',
-  }
-
-  if (body.name !== accessData.name) {
+  const result = await delayResponse(body.count)
+  console.log('resultOOOO', result)
+  if (!result) {
     throw createError({
       statusCode: 400,
       message: 'error!!!',
@@ -27,3 +24,15 @@ export default defineEventHandler(async (event) => {
     success: true,
   }
 })
+
+const delayResponse = (count: any) => {
+  return new Promise((resolve) => {
+    setTimeout(() => {
+      if (count % 2 === 0) {
+        resolve(true)
+      } else {
+        resolve(false)
+      }
+    }, 3000)
+  })
+}
