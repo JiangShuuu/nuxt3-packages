@@ -23,5 +23,8 @@ export default defineAppConfig({
         size: 'text-sm',
       },
     },
+    modal: {
+      base: 'items-center',
+    },
   },
 })
