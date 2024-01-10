@@ -41,15 +41,22 @@ const items = [
   ],
   [
     {
+      label: 'local-auth',
+      icon: 'i-heroicons-arrow-right-circle-20-solid',
+      to: 'auth/local',
+    },
+    {
+      label: 'sidbase-auth',
+      icon: 'i-heroicons-arrow-right-circle-20-solid',
+      to: '/auth/sidbase',
+    },
+  ],
+  [
+    {
       label: 'GraphQL',
       icon: 'i-heroicons-arrow-right-circle-20-solid',
       to: '/graphql',
       click: () => {},
-    },
-    {
-      label: 'app-auth',
-      icon: 'i-heroicons-arrow-right-circle-20-solid',
-      to: '/app-auth',
     },
     {
       label: 'Redis-Session',

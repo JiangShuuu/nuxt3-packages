@@ -36,7 +36,7 @@ export default defineEventHandler(async (event) => {
     { name: user.name, email: user.email, image: user.image },
     config.jwtSignSecret,
     {
-      expiresIn: '15m',
+      expiresIn: '3m',
     }
   )
   const refreshToken = jwt.sign(
