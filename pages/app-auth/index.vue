@@ -22,7 +22,6 @@
         未登入
       </div>
       <div class="mt-5 space-x-4">
-        <UButton @click="getCurrent">GetUserInfo</UButton>
         <UButton v-if="!data?.user" @click="localLogin">Local Login</UButton>
         <UButton v-if="!data?.user" @click="signIn('github')"
           >Github Login</UButton
@@ -54,6 +53,7 @@
         未登入
       </div>
       <div class="mt-5 space-x-4">
+        <UButton @click="getCurrent">GetUserInfo</UButton>
         <UButton @click="registerUser">Register</UButton>
       </div>
     </div>
@@ -71,31 +71,31 @@
 // }
 
 const { data, signOut, signIn, getSession } = useAuth()
-const config = useRuntimeConfig()
+// const config = useRuntimeConfig()
 const token = await getSession()
 
 const localLogin = async () => {
-  // const { error }: any = await signIn('credentials', {
-  //   // email: config.public.appAccount,
-  //   // password: config.public.appPassword,
-  //   email: 'john@john.com',
-  //   password: 'john1234',
-  //   redirect: false,
-  // })
-
-  // if (error) {
-  //   console.log('error', error)
-  // }
-
-  const user = await $fetch('/api/auth/login', {
-    method: 'POST',
-    body: {
-      email: 'john@john.com',
-      password: 'john1234',
-    },
+  const { error }: any = await signIn('credentials', {
+    // email: config.public.appAccount,
+    // password: config.public.appPassword,
+    email: 'john@john.com',
+    password: 'john1234',
+    redirect: false,
   })
 
-  console.log('userr', user)
+  if (error) {
+    console.log('error', error)
+  }
+
+  // const user = await $fetch('/api/auth/login', {
+  //   method: 'POST',
+  //   body: {
+  //     email: 'john@john.com',
+  //     password: 'john1234',
+  //   },
+  // })
+
+  // console.log('userr', user)
 }
 
 const getCurrent = async () => {
@@ -107,10 +107,12 @@ const getCurrent = async () => {
     return
   }
 
-  const { data } = await useFetch(`${config.public.apiBase}/current_user`, {
-    method: 'GET',
+  console.log('TokenInfo', token.user.accessToken)
+
+  const { data } = await useFetch(`/api/auth/currentUser`, {
+    method: 'POST',
     headers: {
-      Authorization: 'Bearer ' + token.user.accessToken,
+      Authorization: 'Bearer ' + token.user.accessToken + '123213',
     },
     onResponse({ response }) {
       // Process the response data
