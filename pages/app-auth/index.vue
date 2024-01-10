@@ -75,17 +75,27 @@ const config = useRuntimeConfig()
 const token = await getSession()
 
 const localLogin = async () => {
-  const { error }: any = await signIn('credentials', {
-    // email: config.public.appAccount,
-    // password: config.public.appPassword,
-    email: 'john@john.com',
-    password: 'john1234',
-    redirect: false,
+  // const { error }: any = await signIn('credentials', {
+  //   // email: config.public.appAccount,
+  //   // password: config.public.appPassword,
+  //   email: 'john@john.com',
+  //   password: 'john1234',
+  //   redirect: false,
+  // })
+
+  // if (error) {
+  //   console.log('error', error)
+  // }
+
+  const user = await $fetch('/api/auth/login', {
+    method: 'POST',
+    body: {
+      email: 'john@john.com',
+      password: 'john1234',
+    },
   })
 
-  if (error) {
-    console.log('error', error)
-  }
+  console.log('userr', user)
 }
 
 const getCurrent = async () => {

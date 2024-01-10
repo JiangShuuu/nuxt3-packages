@@ -1,22 +1,24 @@
-import { getToken } from '#auth'
+import { getToken, getServerSession } from '#auth'
 
 export default defineEventHandler(async (event) => {
   const body = await readBody(event)
+  const session = await getServerSession(event)
   const token = await getToken({ event })
 
-  console.log('body', body.count)
+  if (!token) {
+    throw createError({ statusCode: 401, statusMessage: 'Unauthorized' })
+  }
+
+  console.log('body', body.count, token)
+  console.log('session', session)
 
   const result = await delayResponse(body.count)
-  console.log('resultOOOO', result)
+
   if (!result) {
     throw createError({
       statusCode: 400,
       message: 'error!!!',
     })
-  }
-
-  if (!token) {
-    throw createError({ statusCode: 401, statusMessage: 'Unauthorized' })
   }
 
   return {
