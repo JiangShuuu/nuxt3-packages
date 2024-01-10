@@ -112,7 +112,7 @@ const getCurrent = async () => {
   const { data } = await useFetch(`/api/auth/currentUser`, {
     method: 'POST',
     headers: {
-      Authorization: 'Bearer ' + token.user.accessToken + '123213',
+      Authorization: 'Bearer ' + token.user.accessToken,
     },
     onResponse({ response }) {
       // Process the response data

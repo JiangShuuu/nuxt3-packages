@@ -1,18 +1,20 @@
-import { getToken, getServerSession } from '#auth'
+// import { getToken, getServerSession } from '#auth'
+import jwt from 'jsonwebtoken'
+const config = useRuntimeConfig()
 
-export default defineEventHandler(async (event) => {
-  const session = await getServerSession(event)
-  const token = await getToken({ event })
+export default defineEventHandler((event) => {
+  const headers = getRequestHeader(event, 'Authorization')
+  console.log('eventHeader', headers)
+  if (!headers) {
+    throw createError({ statusCode: 403, statusMessage: 'Unauthorized' })
+  }
 
-  console.log('CurrentUserInfo', {
-    session,
-    token,
-  })
+  const token = headers.split(' ')[1]
+  const user = jwt.verify(token, config.jwtSignSecret)
 
   return {
     data: {
-      session,
-      token,
+      user,
     },
     success: true,
   }
