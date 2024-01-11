@@ -33,14 +33,14 @@ export default defineEventHandler(async (event) => {
 
   // Create accessToken & refreshToken
   const accessToken = jwt.sign(
-    { name: user.name, email: user.email, image: user.image },
+    { id: user.id, name: user.name, email: user.email, image: user.image },
     config.jwtSignSecret,
     {
       expiresIn: '3m',
     }
   )
   const refreshToken = jwt.sign(
-    { name: user.name, email: user.email, image: user.image },
+    { id: user.id, name: user.name, email: user.email, image: user.image },
     config.jwtSignSecret,
     {
       expiresIn: '7d',

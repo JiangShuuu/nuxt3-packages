@@ -58,6 +58,7 @@
 </template>
 
 <script setup lang="ts">
+const token = useCookie('access_token')
 const data: any = reactive({})
 
 const localLogin = async () => {
@@ -67,12 +68,18 @@ const localLogin = async () => {
       email: 'john@john.com',
       password: 'john1234',
     },
+    onResponse({ response }) {
+      if (response._data) {
+        token.value = response._data.data.accessToken
+      }
+    },
   })
 
   console.log('userr', user)
 }
 
 const getCurrent = async () => {
+  console.log('TTTOKEN', token)
   // if (!token.user) {
   //   useCustomToast({
   //     title: '請先登入',
@@ -81,29 +88,28 @@ const getCurrent = async () => {
   //   return
   // }
   // console.log('TokenInfo', token.user.accessToken)
-  // const { data } = await useFetch(`/api/auth/currentUser`, {
-  //   method: 'POST',
-  //   headers: {
-  //     Authorization: 'Bearer ' + token.user.accessToken,
-  //   },
-  //   onResponse({ response }) {
-  //     // Process the response data
-  //     if (response._data.error) return
-  //     console.log('Response', response._data)
-  //     useCustomToast({
-  //       title: '成功獲取使用者資料!',
-  //     })
-  //   },
-  //   onResponseError({ request, options, error }) {
-  //     // Handle the request errors
-  //     console.log('errorMsg::getCurrent:', error, request, options)
-  //     useCustomToast({
-  //       title: 'Error::getCurrent',
-  //       color: 'yellow',
-  //     })
-  //   },
-  // })
-  // console.log('currentUserData', data.value)
+  await useFetch(`/api/local-auth/currentUser`, {
+    method: 'POST',
+    headers: {
+      Authorization: 'Bearer ' + token.value,
+    },
+    onResponse({ response }) {
+      // Process the response data
+      if (response._data.error) return
+      console.log('Response', response._data)
+      useCustomToast({
+        title: '成功獲取使用者資料!',
+      })
+    },
+    onResponseError({ request, options, error }) {
+      // Handle the request errors
+      console.log('errorMsg::getCurrent:', error, request, options)
+      useCustomToast({
+        title: 'Error::getCurrent',
+        color: 'yellow',
+      })
+    },
+  })
 }
 
 const registerUser = async () => {

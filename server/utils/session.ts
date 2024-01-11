@@ -3,10 +3,8 @@ import { useSession } from 'h3'
 import type { H3Event } from 'h3'
 
 interface User {
-  id: number
-  name: string
-  phone: string
-  address: string
+  id: string
+  refreshToken: string
 }
 
 const sessionPassword = 'secretsecretsecretsecretsecretsecretsecret'

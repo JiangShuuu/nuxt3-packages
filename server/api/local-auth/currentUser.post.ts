@@ -4,14 +4,25 @@ const config = useRuntimeConfig()
 
 export default defineEventHandler((event) => {
   const headers = getRequestHeader(event, 'Authorization')
-  console.log('eventHeader', headers)
   if (!headers) {
-    throw createError({ statusCode: 403, statusMessage: 'Unauthorized' })
+    throw createError({ statusCode: 401, statusMessage: 'Unauthorized' })
   }
 
   const token = headers.split(' ')[1]
-  const user = jwt.verify(token, config.jwtSignSecret)
 
+  // console.log('user', token, headers)
+
+  // 驗證換發 token
+  let user
+  try {
+    user = jwt.verify(token, config.jwtSignSecret)
+  } catch (err) {
+    console.log('ErrorInfo', err)
+    $fetch('/api/local-auth/refresh', {
+      method: 'POST',
+    })
+  }
+  console.log('userInfo', user)
   return {
     data: {
       user,
