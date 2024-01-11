@@ -58,7 +58,8 @@
 </template>
 
 <script setup lang="ts">
-const token = useCookie('access_token')
+const accessToken = useCookie('access_token')
+const refreshToken = useCookie('refresh_token')
 const data: any = reactive({})
 
 const localLogin = async () => {
@@ -70,7 +71,8 @@ const localLogin = async () => {
     },
     onResponse({ response }) {
       if (response._data) {
-        token.value = response._data.data.accessToken
+        accessToken.value = response._data.data.accessToken
+        refreshToken.value = response._data.data.refreshToken
       }
     },
   })
@@ -79,19 +81,10 @@ const localLogin = async () => {
 }
 
 const getCurrent = async () => {
-  console.log('TTTOKEN', token)
-  // if (!token.user) {
-  //   useCustomToast({
-  //     title: '請先登入',
-  //     color: 'yellow',
-  //   })
-  //   return
-  // }
-  // console.log('TokenInfo', token.user.accessToken)
   await useFetch(`/api/local-auth/currentUser`, {
     method: 'POST',
     headers: {
-      Authorization: 'Bearer ' + token.value,
+      // Authorization: 'Bearer ' + token.value,
     },
     onResponse({ response }) {
       // Process the response data

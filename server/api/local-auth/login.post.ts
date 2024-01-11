@@ -41,7 +41,7 @@ export default defineEventHandler(async (event) => {
   )
   const refreshToken = jwt.sign(
     { id: user.id, name: user.name, email: user.email, image: user.image },
-    config.jwtSignSecret,
+    config.jwtSignRefreshSecret,
     {
       expiresIn: '7d',
     }
