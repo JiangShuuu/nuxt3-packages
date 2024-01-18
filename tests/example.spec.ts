@@ -10,12 +10,16 @@ test.describe('測試一', () => {
   })
 
   // 拿 class 比對內容
-  test('拿到第一個div', async ({ page }) => {
-    const name = await page.innerText('.helloo')
-    expect(name).toBe('安安')
+  test('拿到h1', async ({ page }) => {
+    const h1Element = page.locator('h1')
+    const h1Text = await h1Element.innerText()
+    expect(h1Text).toBe('PlayWright Test')
   })
 
   // 點按鈕出現彈窗比對內容
+  test('按紐觸發彈窗', ({ page }) => {
+    console.log('page', page)
+  })
 
   // 點按鈕觸發store改變畫面內容
 

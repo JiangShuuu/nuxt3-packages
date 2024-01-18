@@ -10,7 +10,8 @@
     "test": "vitest",
     "e2e": "npx playwright test",
     "e2e:report": "npx playwright test --reporter dot",
-    "e2e:web": "npx playwright show-report"
+    "e2e:web": "npx playwright show-report",
+    "e2e:ui": "playwright test --ui"
   },
   "devDependencies": {
     "@next-auth/prisma-adapter": "^1.0.7",
