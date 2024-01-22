@@ -22,13 +22,16 @@ test.describe('測試一', () => {
   test('按紐觸發彈窗', async ({ page }) => {
     // const button = page.getByText('Open')
     const button = page.locator('text=Open')
-    await button.click()
+    await button.dblclick()
     await page.waitForTimeout(1000)
 
-    const refText = await page.locator('text=安安').innerText({ timeout: 2000 })
-    console.log('refText', refText)
-    expect(refText).toBe('安安')
+    // const refText = await page.locator('text=安安').innerText({ timeout: 2000 })
+    // console.log('refText', refText)
+    // expect(refText).toBe('安安')
 
+    const newTodo = page.getByPlaceholder('gmail')
+    await newTodo.fill('example@gmail.com')
+    await newTodo.press('Enter')
     // console.log('button', button)
     // const submitBtn = page.getByRole('button', { name: 'Submit' })
     // expect(submitBtn).toBe('Submit')

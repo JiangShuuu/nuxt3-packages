@@ -24,6 +24,7 @@
         </UForm>
       </UModal>
     </div>
+    <input type="text" placeholder="gmail" />
   </div>
 </template>
 
