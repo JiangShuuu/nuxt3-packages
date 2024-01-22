@@ -1,8 +1,9 @@
 <template>
   <div class="text-center pt-32">
     <h1 class="title text-3xl text-center">PlayWright Test</h1>
+    <div v-if="string" class="run">{{ string }}</div>
     <div class="pt-20">
-      <UButton label="Open" @click="isOpen = true" />
+      <button @click="Change">Open</button>
 
       <UModal v-model="isOpen">
         <UForm
@@ -19,7 +20,7 @@
             <UInput v-model="state.password" type="password" />
           </UFormGroup>
 
-          <UButton type="submit"> Submit </UButton>
+          <UButton label="Submit" type="submit">Submit</UButton>
         </UForm>
       </UModal>
     </div>
@@ -30,6 +31,7 @@
 import type { FormError, FormSubmitEvent } from '#ui/types'
 
 const isOpen = ref(false)
+const string = ref('')
 const state = reactive({
   email: undefined,
   password: undefined,
@@ -40,6 +42,11 @@ const validate = (state: any): FormError[] => {
   if (!state.email) errors.push({ path: 'email', message: 'Required' })
   if (!state.password) errors.push({ path: 'password', message: 'Required' })
   return errors
+}
+
+function Change() {
+  console.log('CLick????')
+  string.value = '加加'
 }
 
 function onSubmit(event: FormSubmitEvent<any>) {
