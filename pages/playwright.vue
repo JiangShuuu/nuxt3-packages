@@ -1,9 +1,8 @@
 <template>
   <div class="text-center pt-32">
     <h1 class="title text-3xl text-center">PlayWright Test</h1>
-    <div v-if="string" class="run">{{ string }}</div>
     <div class="pt-20">
-      <button @click="Change">Open</button>
+      <button @click="isOpen = true">Open</button>
 
       <UModal v-model="isOpen">
         <UForm
@@ -24,7 +23,6 @@
         </UForm>
       </UModal>
     </div>
-    <input type="text" placeholder="gmail" />
   </div>
 </template>
 
@@ -32,7 +30,7 @@
 import type { FormError, FormSubmitEvent } from '#ui/types'
 
 const isOpen = ref(false)
-const string = ref('')
+// const string = ref('')
 const state = reactive({
   email: undefined,
   password: undefined,
@@ -45,10 +43,10 @@ const validate = (state: any): FormError[] => {
   return errors
 }
 
-function Change() {
-  console.log('CLick????')
-  string.value = '加加'
-}
+// function Change() {
+//   console.log('CLick????')
+//   string.value = '加加'
+// }
 
 function onSubmit(event: FormSubmitEvent<any>) {
   // Do something with data
@@ -57,8 +55,10 @@ function onSubmit(event: FormSubmitEvent<any>) {
     event.data.email === 'user1@example.com' &&
     event.data.password === '12345678'
   ) {
+    console.log('success')
     window.alert('成功送出')
   } else {
+    console.log('error')
     window.alert('輸入錯誤')
   }
   isOpen.value = false

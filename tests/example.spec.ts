@@ -20,22 +20,32 @@ test.describe('測試一', () => {
 
   // 點按鈕出現彈窗比對內容
   test('按紐觸發彈窗', async ({ page }) => {
+    // Other Select Function
     // const button = page.getByText('Open')
+    // const button = page.getByRole('button', { name: 'Open' })
+
+    // btn 點擊前需要等一下頁面, 不然 click 無法觸發
+    await page.waitForTimeout(500)
+
+    // 點擊開彈窗
     const button = page.locator('text=Open')
-    await button.dblclick()
-    await page.waitForTimeout(1000)
+    const isBtnVisible = await button.isVisible()
+    console.log('isBtnVisible', isBtnVisible)
+    await button.click({
+      force: true,
+    })
 
-    // const refText = await page.locator('text=安安').innerText({ timeout: 2000 })
-    // console.log('refText', refText)
-    // expect(refText).toBe('安安')
+    // 輸入input送出
+    const Email = page.getByLabel('Email')
+    const Password = page.getByLabel('Password')
+    await Email.fill('user1@example.com')
+    await Password.fill('12345678')
+    const submitBtn = page.locator('text=Submit')
+    await submitBtn.click({
+      force: true,
+    })
 
-    const newTodo = page.getByPlaceholder('gmail')
-    await newTodo.fill('example@gmail.com')
-    await newTodo.press('Enter')
-    // console.log('button', button)
-    // const submitBtn = page.getByRole('button', { name: 'Submit' })
-    // expect(submitBtn).toBe('Submit')
-    // await expect(page.getByRole('button', { name: 'Submit' })).toBeVisible()
+    // 對應結果
   })
 
   // 點按鈕觸發store改變畫面內容
