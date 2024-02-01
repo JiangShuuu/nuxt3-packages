@@ -82,6 +82,14 @@ const items = [
         console.log('goNuxtUI')
       },
     },
+    {
+      label: 'ChartJs',
+      icon: 'i-heroicons-pencil-square-20-solid',
+      to: '/chartjs',
+      click: () => {
+        console.log('goChart')
+      },
+    },
   ],
 ]
 </script>
