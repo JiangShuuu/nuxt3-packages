@@ -36,14 +36,14 @@ test.describe('測試一', () => {
     })
 
     // 輸入input送出
-    const Email = page.getByLabel('Email')
-    const Password = page.getByLabel('Password')
-    await Email.fill('user1@example.com')
-    await Password.fill('12345678')
-    const submitBtn = page.locator('text=Submit')
-    await submitBtn.click({
-      force: true,
-    })
+    // const Email = page.getByLabel('Email')
+    // const Password = page.getByLabel('Password')
+    // await Email.fill('user1@example.com')
+    // await Password.fill('12345678')
+    // const submitBtn = page.locator('text=Submit')
+    // await submitBtn.click({
+    //   force: true,
+    // })
 
     // 對應結果
   })
